@@ -1,0 +1,13 @@
+{
+  "trailingComma": "all",
+  "semi": true,
+  "singleQuote": false,
+  "printWidth": 120,
+  "importOrder": [
+    "^@/(.*)$",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "endOfLine": "auto"
+}

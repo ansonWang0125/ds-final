@@ -1,0 +1,7 @@
+{
+    "scripts": {
+      "start": "cd frontend && yarn start",
+      "server": "cd server && yarn server"
+    }
+}
+  
