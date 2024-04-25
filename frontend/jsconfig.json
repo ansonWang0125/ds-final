@@ -4,7 +4,12 @@
       "jsx": "react",
       "paths": {
         "@styles/*": ["./styles/*"],
-        "@components/*": ["./components/*"]
+        "@page/*": ["./page/*"],
+        "@config/*": ["./config/*"],
+        "@context/*": ["./context/*"],
+        "@routes/*": ["./routes/*"],
+        "@components/*": ["./components/*"],
+        "@containers/*": ["./containers/*"]
       }
     }
   }

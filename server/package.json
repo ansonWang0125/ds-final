@@ -3,15 +3,22 @@
     "babel-cli": "^6.26.0",
     "babel-eslint": "^10.1.0",
     "babel-preset-env": "^1.7.0",
+    "bcrypt": "^5.1.1",
+    "config": "^3.3.11",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "eslint": "^7.32.0 || ^8.2.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.3",
     "express": "^4.19.2",
-    "nodemon": "^3.1.0"
+    "express-session": "^1.18.0",
+    "node-pg-migrate": "^6.2.2",
+    "nodemon": "^3.1.0",
+    "pg": "^8.11.5"
   },
   "scripts": {
     "start": "nodemon src/index.js --exec babel-node",
+    "migrate": "node-pg-migrate",
     "lint": "eslint --ext .js,.jsx src"
   },
   "devDependencies": {

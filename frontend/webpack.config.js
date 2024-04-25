@@ -14,6 +14,11 @@ module.exports = {
     modules: [paths.appSrc, "node_modules"],
     alias: {
       "@components": path.resolve(paths.appSrc, "components/"),
+      "@page": path.resolve(paths.appSrc, "page/"),
+      "@config": path.resolve(paths.appSrc, "config/"),
+      "@context": path.resolve(paths.appSrc, "context/"),
+      "@routes": path.resolve(paths.appSrc, "routes/"),
+      "@containers": path.resolve(paths.appSrc, "containers/"),
     },
   },
 };
