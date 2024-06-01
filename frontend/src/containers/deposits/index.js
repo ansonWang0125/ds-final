@@ -1,19 +1,20 @@
 import Typography from "@mui/material/Typography";
 import { MuiTitle } from "@components";
+import { formatNowDate } from "@functions/util";
 
 function preventDefault(event) {
   event.preventDefault();
 }
 
-export default function Deposits() {
+export default function Deposits({ token }) {
   return (
     <>
-      <MuiTitle>Recent Deposits</MuiTitle>
+      <MuiTitle>Recent Token</MuiTitle>
       <Typography component="p" variant="h4">
-        $3,024.00
+        ${token.toString()}
       </Typography>
       <Typography color="text.secondary" sx={{ flex: 1 }}>
-        on 15 March, 2019
+        {formatNowDate()}
       </Typography>
       <div>
         <button

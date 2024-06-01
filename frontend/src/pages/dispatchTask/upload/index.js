@@ -1,39 +1,24 @@
 import { useState } from "react";
-import { ConnectWalletButton } from "@components";
-import Web3 from "web3";
+import ProvideInfo from "./provideInfo";
+import SelectGpu from "./selectGpu";
 
 export default function Upload() {
-  const [loading, setLoading] = useState(false);
-  const [address, setAddress] = useState("");
-  const onPressConnect = async () => {
-    setLoading(true);
-
-    try {
-      if (window && window.ethereum && window.ethereum.isMetaMask) {
-        // Desktop browser
-        const accounts = await window.ethereum.request({
-          method: "eth_requestAccounts",
-        });
-
-        const account = Web3.utils.toChecksumAddress(accounts[0]);
-        setAddress(account);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-
-    setLoading(false);
+  const [gpuSelected, setGpuSelected] = useState(false);
+  const [selectedId, setSelectedId] = useState(0);
+  const [gpuClusterSize, setGpuClusterSize] = useState(0);
+  const handleChangeGpuSelected = (newGpuSelected, id, clusterSize) => {
+    setGpuSelected(newGpuSelected);
+    setSelectedId(id);
+    setGpuClusterSize(clusterSize);
   };
-  const onPressLogout = () => setAddress("");
+
   return (
-    <div className="flex flex-row items-center justify-center gap-[60px] w-full h-screen">
-      <ConnectWalletButton
-        onPressConnect={onPressConnect}
-        onPressLogout={onPressLogout}
-        loading={loading}
-        address={address}
-      />
-      Upload
+    <div className="w-full h-full">
+      {gpuSelected ? (
+        <ProvideInfo selectedId={selectedId} gpuClusterSize={gpuClusterSize} />
+      ) : (
+        <SelectGpu handleChangeGpuSelected={handleChangeGpuSelected} />
+      )}
     </div>
   );
 }

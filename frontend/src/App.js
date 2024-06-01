@@ -1,50 +1,45 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { UserDataContextProvider } from "@context";
-import { LoginRoutes } from "@routes";
+import { AddressContextProvider, IsLoginContextProvider } from "@context";
+import LoginRoutes from "@routes";
 import DispatchTask from "pages/dispatchTask";
-import ProvideGpu from "pages/provideGpu";
 import Login from "pages/login";
-import Signup from "pages/signup";
-import Main from "pages";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { NavBar } from "./containers";
+
+const defaultTheme = createTheme();
 
 function App() {
   return (
-    <UserDataContextProvider>
-      <div className="flex flex-col">
-        <Router>
-          <NavBar />
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <LoginRoutes>
-                  <Main />
-                </LoginRoutes>
-              }
-            />
-            <Route
-              path="/dispatch_task/*"
-              element={
-                <LoginRoutes>
-                  <DispatchTask />
-                </LoginRoutes>
-              }
-            />
-            <Route
-              path="/provide_gpu/*"
-              element={
-                <LoginRoutes>
-                  <ProvideGpu />
-                </LoginRoutes>
-              }
-            />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-          </Routes>
-        </Router>
-      </div>
-    </UserDataContextProvider>
+    <ThemeProvider theme={defaultTheme}>
+      <IsLoginContextProvider>
+        <AddressContextProvider>
+          <div className="flex flex-col fixed w-full h-full">
+            <Router>
+              <NavBar />
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    <LoginRoutes>
+                      <DispatchTask />
+                    </LoginRoutes>
+                  }
+                />
+                <Route
+                  path="/dispatchTask/*"
+                  element={
+                    <LoginRoutes>
+                      <DispatchTask />
+                    </LoginRoutes>
+                  }
+                />
+                <Route path="/login" element={<Login />} />
+              </Routes>
+            </Router>
+          </div>
+        </AddressContextProvider>
+      </IsLoginContextProvider>
+    </ThemeProvider>
   );
 }
 

@@ -1,19 +1,20 @@
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import MenuIcon from "@mui/icons-material/Menu";
 import { MuiTypography, MuiIconButton, MuiButton } from "@components";
-import { UseUserDataContext } from "@context/userDataCtx";
-import { userLogout } from "functions/axiosApi";
-import isDataLogin from "functions/util";
+import { UseAddressContext } from "@context/addressCtx";
+import { UseIsLoginContext } from "@context/isLoginCtx";
 import { useNavigate } from "react-router-dom";
+import HomeIcon from "@mui/icons-material/Home";
 
 export default function NavBar() {
-  const { userData, changeUserData } = UseUserDataContext();
+  const { isLogin, changeIsLogin } = UseIsLoginContext();
+  const { changeAddress } = UseAddressContext();
+  const onPressLogout = () => changeAddress("");
   const navigate = useNavigate();
-  const handleLoginOnClick = async () => {
-    changeUserData({ username: "", userID: "" });
-    await userLogout();
+  const handleLogoutOnClick = () => {
+    changeIsLogin(false);
+    onPressLogout();
     window.location.reload(false);
   };
   const handleTitleOnClick = () => {
@@ -23,13 +24,20 @@ export default function NavBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <MuiIconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-            <MenuIcon />
+          <MuiIconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+            onClick={handleTitleOnClick}
+          >
+            <HomeIcon />
           </MuiIconButton>
           <MuiTypography variant="h6" component="div" sx={{ flexGrow: 1 }} onClick={handleTitleOnClick}>
             <button type="button">Sharing GPU</button>
           </MuiTypography>
-          <MuiButton onClick={handleLoginOnClick}>{isDataLogin(userData) ? "Logout" : "Login"}</MuiButton>
+          <MuiButton onClick={handleLogoutOnClick}>{isLogin ? "Logout" : "Login"}</MuiButton>
         </Toolbar>
       </AppBar>
     </Box>

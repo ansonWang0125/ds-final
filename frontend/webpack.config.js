@@ -19,6 +19,7 @@ module.exports = {
       "@context": path.resolve(paths.appSrc, "context/"),
       "@routes": path.resolve(paths.appSrc, "routes/"),
       "@containers": path.resolve(paths.appSrc, "containers/"),
+      "@functions": path.resolve(paths.appSrc, "functions/"),
     },
   },
 };

@@ -1,23 +1,24 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { fetchTasks } from "functions/contract";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import { GpuInfo } from "@containers";
-import { fetchClusters } from "functions/contract";
+import { UseAddressContext } from "@context/addressCtx";
 import { MuiTitle } from "@components";
+import { TaskInfo } from "@containers";
 
-export default function Dashboard() {
-  const [clusters, setClusters] = useState([]);
-  const disable = true;
-  const handleFetchClusters = async () => {
-    const newClusters = await fetchClusters();
-    setClusters(newClusters);
-    console.log("new cluster: ", newClusters);
-  };
+export default function Record() {
+  const [tasks, setTasks] = useState([]);
+  const { address } = UseAddressContext();
   useEffect(() => {
-    handleFetchClusters();
-  }, []);
+    const fetchData = async () => {
+      const res = await fetchTasks(address);
+      setTasks(res);
+    };
+    fetchData();
+  }, [address]);
+
   return (
     <Box
       component="main"
@@ -32,8 +33,8 @@ export default function Dashboard() {
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-              <MuiTitle>Current Provider</MuiTitle>
-              <GpuInfo clusters={clusters} disable={disable} />
+              <MuiTitle>Record</MuiTitle>
+              <TaskInfo tasks={tasks} />
             </Paper>
           </Grid>
         </Grid>

@@ -1,9 +1,11 @@
 import Background from "./background";
 import NavBar from "./navbar";
 import Deposits from "./deposits";
-import Orders from "./orders";
+import GpuInfo from "./gpuInfo";
 import Chart from "./chart/chart";
-import { mainListItems, secondaryListItems } from "./listItem";
+import TaskAppBar from "./taskAppBar";
+import TaskDrawer from "./taskDrawer";
+import TaskInfo from "./taskInfo";
 import "./index.css";
 
-export { Background, NavBar, Deposits, Orders, Chart, mainListItems, secondaryListItems };
+export { Background, NavBar, Deposits, GpuInfo, Chart, TaskAppBar, TaskDrawer, TaskInfo };

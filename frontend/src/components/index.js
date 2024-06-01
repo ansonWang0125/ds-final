@@ -8,6 +8,7 @@ import MuiButton from "./muiButton";
 import MuiTitle from "./muiTitle";
 import IconTextButton from "./iconTextButton";
 import ConnectWalletButton from "./connectWalletButton";
+import MetaLogo from "./metaLogo";
 
 export {
   Text,
@@ -20,4 +21,5 @@ export {
   MuiTitle,
   IconTextButton,
   ConnectWalletButton,
+  MetaLogo,
 };

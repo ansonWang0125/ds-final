@@ -1,29 +1,35 @@
-import styles from "styles/connectWallet.module.css";
+import { Button } from "@mui/material";
+import MetaLogo from "../metaLogo";
+import IconTextButton from "../iconTextButton";
 
 function ConnectWalletButton({ onPressLogout, onPressConnect, loading, address }) {
   let buttonContent;
 
   if (address && !loading) {
     buttonContent = (
-      <button type="button" onClick={onPressLogout} className={styles["connect-wallet"]}>
+      <Button variant="outlined" onClick={onPressLogout} sx={{ width: "100%", maxWidth: "300px" }}>
         Disconnect
-      </button>
+      </Button>
     );
   } else if (loading) {
     buttonContent = (
-      <button type="button" className={`${styles["connect-wallet"]} ${styles["connect-button-loading"]}`} disabled>
-        <div>Loading...</div>
-      </button>
+      <Button variant="outlined" sx={{ width: "100%", maxWidth: "300px" }}>
+        Loading...
+      </Button>
     );
   } else {
     buttonContent = (
-      <button type="button" onClick={onPressConnect} className={styles["connect-wallet"]}>
-        Connect Wallet
-      </button>
+      <IconTextButton
+        icon={<MetaLogo />}
+        text=" Connect Wallet"
+        variant="outlined"
+        onClick={onPressConnect}
+        sx={{ width: "100%", maxWidth: "300px" }}
+      />
     );
   }
 
-  return <div>{buttonContent}</div>;
+  return <div className="w-[100%]">{buttonContent}</div>;
 }
 
 export default ConnectWalletButton;

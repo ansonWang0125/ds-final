@@ -1,54 +1,60 @@
 import { useState } from "react";
-import { userLogin } from "functions/axiosApi";
-import { UseUserDataContext } from "@context/userDataCtx";
 import { useNavigate } from "react-router-dom";
+import { UseAddressContext } from "@context/addressCtx";
+import { UseIsLoginContext } from "@context/isLoginCtx";
+import { Button } from "@mui/material";
+import Web3 from "web3";
+import { MetaLogo, IconTextButton } from "@components";
+import detectEthereumProvider from "@metamask/detect-provider";
 
 function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const { changeUserData } = UseUserDataContext();
+  const [loading, setLoading] = useState(false);
+  const { changeAddress } = UseAddressContext();
+  const { changeIsLogin } = UseIsLoginContext();
   const navigate = useNavigate();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const res = await userLogin(username, password);
-    console.log("res: ", res.data);
-    changeUserData(res.data);
+  const onPressConnect = async () => {
+    setLoading(true);
+
+    const provider = await detectEthereumProvider();
+
+    try {
+      if (window && window.ethereum && window.ethereum.isMetaMask && provider) {
+        const accounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+
+        const account = Web3.utils.toChecksumAddress(accounts[0]);
+        changeAddress(account);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+    setLoading(false);
+    changeIsLogin(true);
     navigate("/");
   };
 
   return (
     <div className="min-h-screen flex justify-center items-center">
-      <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="username"
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
+      <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div className="flex flex-col gap-[10px] items-center justify-between">
+          {!loading ? (
+            <IconTextButton
+              icon={<MetaLogo />}
+              text=" Connect Wallet"
+              variant="outlined"
+              onClick={onPressConnect}
+              sx={{ width: "100%", maxWidth: "300px" }}
+            />
+          ) : (
+            <Button variant="outlined" sx={{ width: "100%", maxWidth: "300px" }}>
+              Loading...
+            </Button>
+          )}
         </div>
-        <div className="mb-6">
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-            id="password"
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <div className="flex items-center justify-between">
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="submit"
-          >
-            Sign In
-          </button>
-        </div>
-      </form>
+      </div>
     </div>
   );
 }

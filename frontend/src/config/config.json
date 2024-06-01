@@ -3,5 +3,14 @@
         "user": "user",
         "admin": "admin",
         "pm": "pm"
+    },
+    "taskPage": {
+        "dashboard": "dashboard",
+        "record": "record",
+        "token": "token"
+    },
+    "page": {
+        "dispatchTask": "dispatchTask",
+        "provideGpu": "provideGpu"
     }
 }
