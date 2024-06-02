@@ -16,21 +16,25 @@ export default function GpuInfo({ clusters, handleChangeGpuSelected, disable }) 
         </TableRow>
       </TableHead>
       <TableBody>
-        {clusters.map((cluster) => (
-          <TableRow
-            key={cluster.provider + cluster.provider}
-            onClick={() => {
-              if (!disable) handleChangeGpuSelected(true, cluster.gpuId, cluster.clusterSize);
-            }}
-            hover
-            style={{ cursor: "pointer" }}
-          >
-            <TableCell>{cluster.provider}</TableCell>
-            <TableCell>{cluster.gpuId.toString()}</TableCell>
-            <TableCell>{cluster.clusterSize.toString()}</TableCell>
-            <TableCell align="right">{cluster.available.toString()}</TableCell>
-          </TableRow>
-        ))}
+        {clusters.map((cluster) =>
+          cluster.available ? (
+            <TableRow
+              key={cluster.provider + cluster.provider}
+              onClick={() => {
+                if (!disable) handleChangeGpuSelected(true, cluster.gpuId, cluster.clusterSize);
+              }}
+              hover
+              style={{ cursor: "pointer" }}
+            >
+              <TableCell>{cluster.provider}</TableCell>
+              <TableCell>{cluster.gpuId.toString()}</TableCell>
+              <TableCell>{cluster.clusterSize.toString()}</TableCell>
+              <TableCell align="right">{cluster.available.toString()}</TableCell>
+            </TableRow>
+          ) : (
+            console.log(typeof cluster.available)
+          ),
+        )}
       </TableBody>
     </Table>
   );
