@@ -1,9 +1,9 @@
 import Web3 from "web3";
 
-const tokenAddress = "0x2E983A1Ba5e8b38AAAeC4B440B9dDcFBf72E15d1";
+const tokenAddress = "0x663F3ad617193148711d28f5334eE4Ed07016602";
 const abiAddress = "/Token.abi";
 
-export default async function fetchToken(address) {
+export async function fetchToken(address) {
   // get web3 provider
   const web3 = new Web3(window.ethereum);
 
@@ -19,4 +19,18 @@ export default async function fetchToken(address) {
     return res;
   }
   return 0;
+}
+
+export async function taskEventLog() {
+  const web3 = new Web3(window.ethereum);
+  const response = await fetch("/Token.abi");
+  const abi = await response.json();
+  const contract = new web3.eth.Contract(abi, tokenAddress);
+  console.log("before");
+  const res = await contract.getPastEvents("Approval", {
+    fromBlock: 0,
+    toBlock: "latest",
+  });
+  console.log("res", res);
+  console.log("after");
 }

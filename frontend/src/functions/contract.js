@@ -1,6 +1,6 @@
 import Web3 from "web3";
 
-const contractAddress = "0x663F3ad617193148711d28f5334eE4Ed07016602";
+const contractAddress = "0x2E983A1Ba5e8b38AAAeC4B440B9dDcFBf72E15d1";
 
 export async function fetchClusters() {
   // get web3 provider

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import fetchToken from "functions/tokenContract";
+import { fetchToken, taskEventLog } from "functions/tokenContract";
 import Box from "@mui/material/Box";
 import { UseAddressContext } from "@context/addressCtx";
 import { Deposits } from "@containers";
@@ -12,6 +12,7 @@ export default function Token() {
   const { address } = UseAddressContext();
   useEffect(() => {
     const fetchData = async () => {
+      await taskEventLog();
       const res = await fetchToken(address);
       setToken(res);
     };
