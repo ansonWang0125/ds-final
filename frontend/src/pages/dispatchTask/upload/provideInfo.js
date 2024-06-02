@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { registerTask } from "functions/contract";
+import { approveContract } from "@functions/tokenContract";
+import { registerTask } from "@functions/contract";
 import { MuiButton } from "components";
 import { Box, TextField, Typography } from "@mui/material";
 import { UseAddressContext } from "@context/addressCtx";
@@ -10,6 +11,8 @@ export default function ProvideInfo({ selectedId, gpuClusterSize }) {
   const { address } = UseAddressContext();
 
   const handleConfirm = async () => {
+    const approveSuccess = await approveContract(address);
+    console.log("is success: ", approveSuccess);
     const isSuccess = await registerTask(dataImageUrl, trainingUrl, selectedId, gpuClusterSize, address);
     console.log("is success: ", isSuccess);
   };
